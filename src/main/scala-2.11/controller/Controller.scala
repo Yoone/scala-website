@@ -9,17 +9,19 @@ import http.Request
 object Controller {
   @Route("/")
   def index (request: Request): String = {
+    request.vars += ("title" -> "Home")
     "index"
   }
 
   @Route("/ascii/upload")
   def upload (request: Request): String = {
     request.vars += ("title" -> "Upload an image")
-    "upload"
+    "ascii_upload"
   }
 
   @Route("/ascii/result")
   def result (request: Request): String = {
-    "result"
+    request.vars += ("title" -> "ASCII result")
+    "ascii_result"
   }
 }
