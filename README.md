@@ -13,6 +13,8 @@ We are trying to create a very (**very!**) simple framework following the ***MVC
 design pattern in Scala and combining them with small webapps using different
 technologies.
 
+**Note:** the website is running in CGI. We are aware of the wasted resources!
+
 Installation
 ------------
 
