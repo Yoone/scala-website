@@ -4,7 +4,14 @@ README
 Introduction
 ------------
 
-TODO
+This project was created with the intention of understanding new languages,
+technologies and combining them. The primary goal is to learn Scala. A fair
+critic would be to point out other languages which would have made this project
+a whole lot easier, but again, this was not the objective.
+
+We are trying to create a very (**very!**) simple framework following the ***MVC***
+design pattern in Scala and combining them with small webapps using different
+technologies.
 
 Installation
 ------------
