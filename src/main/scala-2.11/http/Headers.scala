@@ -1,12 +1,10 @@
 package http
 
-import Parser.PostData
-
 /**
  * Created by yoone on 10/07/15.
  */
 object Headers {
-  def parse (request: Request): Unit = {
+  def parse (request: Request, queryString: String): Unit = {
     request.method = sys.env("REQUEST_METHOD")
 
     if (request.method == "POST") {
@@ -20,11 +18,13 @@ object Headers {
       }
 
       if (formBoundary == null) {
-        PostData.default(request)
+        QueryString.parsePOST(request)
       }
       else {
         PostData.multipart(request, formBoundary)
       }
     }
+
+    QueryString.parseGET(request, queryString)
   }
 }

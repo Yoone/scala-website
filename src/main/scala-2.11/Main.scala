@@ -14,8 +14,12 @@ object Main {
     println("Content-Type: text/html\n")
 
     var uri: String = null
+    var queryString: String = null
     try {
-      uri = sys.env("REQUEST_URI")
+      val rqUri = sys.env("REQUEST_URI").split('?')
+      uri = rqUri(0)
+      if (rqUri.length > 1)
+        queryString = rqUri(1)
     }
     catch {
       case e: NoSuchElementException => uri = "/ascii/upload" // Used for tests
@@ -38,7 +42,7 @@ object Main {
 
       // Handle HTTP request
       val request = new Request
-      Headers.parse(request)
+      Headers.parse(request, queryString)
 
       // Run controller
       val view = method(request).toString
