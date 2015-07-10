@@ -24,15 +24,6 @@ object Controller {
 
   @Route("/ascii/result")
   def result (request: Request): Unit = {
-    /*var buf = StdIn.readLine()
-    var data = ""
-    while (buf != null) {
-      data += buf + "\n"
-      buf = StdIn.readLine()
-    }
-
-    println(data + "\n\n")
-
-    sys.env.foreach(println(_))*/
+    // request.POST.foreach(m => println("Key:" + m._1 + ", Value:" + m._2))
   }
 }

@@ -1,5 +1,7 @@
 package http
 
+import Parser.PostData
+
 import scala.io.StdIn
 
 /**
@@ -22,17 +24,16 @@ object Headers {
       // << BEGIN reading from StdIn
       // TODO: remove until END
       // TODO: remove import (StdIn)
-      var buf = StdIn.readLine()
+      /*var buf = StdIn.readLine()
       var data = ""
       while (buf != null) {
         data += buf + "\n"
         buf = StdIn.readLine()
-      }
+      }*/
       // END >>
 
       if (formBoundary == null) {
-        // TODO: parse form data
-        // PostData.default(data, request.POST)
+        PostData.default(request)
       }
       else {
         // TODO: parse multipart data
