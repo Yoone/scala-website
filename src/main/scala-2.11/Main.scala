@@ -1,6 +1,7 @@
 import annotation.Route
 import controller.Controller
 import http.{Headers, Request}
+import view.Display
 
 import reflect.runtime.universe._
 
@@ -35,9 +36,15 @@ object Main {
       val ctrl = mirror.reflect(Controller)
       val method = ctrl.reflectMethod(controller.head._1.asMethod)
 
+      // Handle HTTP request
       val request = new Request
       Headers.parse(request)
-      method(request)
+
+      // Run controller
+      val view = method(request).toString
+
+      // Render view
+      Display.render(request, view)
     }
   }
 

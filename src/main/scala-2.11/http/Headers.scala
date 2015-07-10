@@ -2,8 +2,6 @@ package http
 
 import Parser.PostData
 
-import scala.io.StdIn
-
 /**
  * Created by yoone on 10/07/15.
  */
