@@ -1,0 +1,5 @@
+# Must be owned by www-data
+files/
+
+# Scala path
+whereisscala
