@@ -47,12 +47,28 @@ object PostData {
     }
   }
 
+  def parseField(request: Request, str: String): Unit = {
+    if (str == "--")
+      return
+    // println("Field:" + str + "EndField")
+    if (str.contains("filename"))
+      return
+    var name: String = str.substring(str.indexOf("name=") + 6, str.indexOf("\"", str.indexOf("name=") + 6))
+    // println("name:" + name)
+    var value: String = str.substring(str.indexOf("\n\n") + 2, str.indexOf("--"))
+    // println("value:" + value)
+
+  }
+
   def multipart(request: Request, boundary: String): Unit = {
     var buf = StdIn.readLine()
     var data = ""
+    var elt: String = null
     while (buf != null) {
       data += buf + "\n"
       buf = StdIn.readLine()
     }
+    val arr: Array[String] = data.split(boundary)
+    arr.foreach(parseField(request, _))
   }
 }

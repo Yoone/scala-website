@@ -6,6 +6,6 @@ package http
 class Request {
   var method: String = null
   var POST: Map[String, String] = Map()
-  var FILES: Map[String, Array[Byte]] = Map()
+  var FILES: Map[String, PostFile] = Map()
   var vars: Map[String, AnyRef] = Map()
 }
