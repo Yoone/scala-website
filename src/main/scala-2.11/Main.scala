@@ -1,5 +1,6 @@
 import annotation.Route
 import controller.Controller
+import http.{Headers, Request}
 
 import reflect.runtime.universe._
 
@@ -16,7 +17,7 @@ object Main {
       uri = sys.env("REQUEST_URI")
     }
     catch {
-      case e: NoSuchElementException => uri = "/upload" // Used for tests
+      case e: NoSuchElementException => uri = "/ascii/upload" // Used for tests
     }
 
     val controller = typeOf[Controller.type].members
@@ -33,7 +34,10 @@ object Main {
       val mirror = runtimeMirror(Controller.getClass.getClassLoader)
       val ctrl = mirror.reflect(Controller)
       val method = ctrl.reflectMethod(controller.head._1.asMethod)
-      method()
+
+      val request = new Request
+      Headers.parse(request)
+      method(request)
     }
   }
 
