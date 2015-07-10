@@ -2,7 +2,7 @@ package Parser
 import util.URLHandler
 
 import scala.io.StdIn
-import http.Request
+import http.{PostFile, Request}
 
 /**
  * Created by mecavity on 10/07/15.
@@ -47,17 +47,23 @@ object PostData {
     }
   }
 
+  def parseFile(request: Request, str: String): Unit = {
+    val name: String = str.substring(str.indexOf("name=") + 6, str.indexOf("\"", str.indexOf("name=") + 6))
+    var file = new PostFile()
+    file.fileName = str.substring(str.indexOf("filename=") + 10, str.indexOf("\"", str.indexOf("filename=") + 10))
+  }
+
   def parseField(request: Request, str: String): Unit = {
-    if (str == "--")
+    if (str == "--" || str == "--\n")
       return
     // println("Field:" + str + "EndField")
-    if (str.contains("filename"))
+    if (str.contains("filename")) {
+      parseFile(request, str)
       return
-    var name: String = str.substring(str.indexOf("name=") + 6, str.indexOf("\"", str.indexOf("name=") + 6))
-    // println("name:" + name)
-    var value: String = str.substring(str.indexOf("\n\n") + 2, str.indexOf("--"))
-    // println("value:" + value)
-
+    }
+    val name: String = str.substring(str.indexOf("name=") + 6, str.indexOf("\"", str.indexOf("name=") + 6))
+    val value: String = str.substring(str.indexOf("\n\n") + 2, str.indexOf("--"))
+    request.POST += (URLHandler.decode(name) -> URLHandler.decode(value))
   }
 
   def multipart(request: Request, boundary: String): Unit = {
