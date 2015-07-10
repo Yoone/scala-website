@@ -15,6 +15,12 @@ object Display {
       m => contents = contents.replace(m.matched, getView(m.group(1)))
     }
 
+    // Search and replace vars
+    val varPattern = """\{\{\s*([^\s]+)\s*\}\}""".r
+    varPattern.findAllIn(contents).matchData foreach {
+      m => contents = contents.replace(m.matched, request.vars.get(m.group(1)).get.toString)
+    }
+
     print(contents)
   }
 

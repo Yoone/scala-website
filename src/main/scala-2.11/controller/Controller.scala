@@ -14,6 +14,7 @@ object Controller {
 
   @Route("/ascii/upload")
   def upload (request: Request): String = {
+    request.vars += ("title" -> "Upload an image")
     "upload"
   }
 
