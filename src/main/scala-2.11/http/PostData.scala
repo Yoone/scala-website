@@ -15,7 +15,7 @@ object PostData {
       data += buf + "\n"
       buf = StdIn.readLine()
     }
-    // println("data:"  + data)
+    //println("data:"  + data)
     data
   }
 
@@ -47,24 +47,12 @@ object PostData {
     }
   }
 
-  def multipart(data: String, boundary: String): Map[String, String] =  {
-    var map: Map[String, String] = Map()
-    var str = data
-    var i = 0
-    var name = ""
-    var getName = false
-    var line = ""
-    while (str != null) {
-      while (str(i) != '\r' && str(i + 1) != '\n') {
-        line += data(i)
-        i += 1
-      }
-      str = str.substring(i + 2, str.length)
-      print(line)
-      line = ""
-      i = 0
+  def multipart(request: Request, boundary: String): Unit = {
+    var buf = StdIn.readLine()
+    var data = ""
+    while (buf != null) {
+      data += buf + "\n"
+      buf = StdIn.readLine()
     }
-
-    map
   }
 }

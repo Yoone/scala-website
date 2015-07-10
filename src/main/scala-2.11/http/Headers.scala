@@ -15,29 +15,17 @@ object Headers {
       var formBoundary: String = null
       try {
         val pattern = """boundary=(.+)$""".r
-        formBoundary = pattern.findAllIn(sys.env("CONTENT_TYPE")).matchData.toList.head.group(2)
+        formBoundary = pattern.findAllIn(sys.env("CONTENT_TYPE")).matchData.toList.head.group(1)
       }
       catch {
         case e @ (_: ArrayIndexOutOfBoundsException | _: NoSuchElementException) => formBoundary = null
       }
 
-      // << BEGIN reading from StdIn
-      // TODO: remove until END
-      // TODO: remove import (StdIn)
-      /*var buf = StdIn.readLine()
-      var data = ""
-      while (buf != null) {
-        data += buf + "\n"
-        buf = StdIn.readLine()
-      }*/
-      // END >>
-
       if (formBoundary == null) {
         PostData.default(request)
       }
       else {
-        // TODO: parse multipart data
-        // PostData.multipart(data, request.POST, formBoundary, request.FILES)
+        PostData.multipart(request, formBoundary)
       }
     }
   }
