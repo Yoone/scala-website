@@ -10,7 +10,7 @@ import java.io._
 object PostData {
   val reader = new InputStreamReader(System.in)
 
-  def saveBinaryFile(request: Request, data: String, boundary: String): Unit = {
+  def saveBinaryFile(request: Request, data: String): PostFile = {
     val file = new PostFile()
     file.fileName = data.substring(data.indexOf("filename=") + 10, data.indexOf("\"", data.indexOf("filename=") + 10))
     file.tmpPath = "files/" + file.fileName // TODO generate tmp path
@@ -24,9 +24,11 @@ object PostData {
       }
     }
     finally output.close()
+
+    file
   }
 
-  def parseFile(request: Request, dataSource: String, boundary: String): Unit = {
+  def parseFile(request: Request, dataSource: String): Unit = {
     var b: Int = System.in.read()
     var data = dataSource
     while (b != -1 && !data.contains("\r\n\r")) { // TODO check why we need to leave last '\n'
@@ -35,8 +37,8 @@ object PostData {
     }
     val name: String = data.substring(data.indexOf("name=") + 6, data.indexOf("\"", data.indexOf("name=") + 6))
 
-    // Read Binary File
-    saveBinaryFile(request, data, boundary)
+    // Save Binary File
+    request.FILES += (name -> saveBinaryFile(request, data))
   }
 
   def parseField(request: Request, str: String): Unit = {
@@ -58,7 +60,7 @@ object PostData {
         data = ""
       }
       else if (data.contains("filename")) {
-        parseFile(request, data, boundary)
+        parseFile(request, data) // TODO this ends parsing, need to check end of binary file
         data = ""
       }
       b = System.in.read()
