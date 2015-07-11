@@ -18,6 +18,12 @@ technologies.
 Installation
 ------------
 
+### SBT Plugins
+
+Add the following line to `project/plugins.sbt`:
+
+    addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.13.0")
+
 ### Set Scala path
 
 Use the following command: `echo $SCALA_BIN > website/whereisscala`
