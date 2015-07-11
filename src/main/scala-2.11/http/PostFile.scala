@@ -19,9 +19,6 @@ class PostFile {
       assert(dir.mkdir(), "Could not create tmp directory")
     }
 
-    tmpPath += UUID.randomUUID()
-
-    val ext = fileName.split('.')
-    tmpPath += (if (ext.length > 2) "." + ext(ext.length - 1) else "")
+    tmpPath += UUID.randomUUID() + ".tmp"
   }
 }
