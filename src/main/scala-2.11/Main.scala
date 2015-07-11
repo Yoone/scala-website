@@ -27,7 +27,12 @@ object Main {
 
     val controller = typeOf[Controller.type].members
       .flatMap(c => c.annotations.find(_.tree.tpe == typeOf[Route]).map((c, _)))
-      .filter(c => matchController(c._2.tree.children.tail.head.children.tail.head.toString(), uri))
+      .filter {
+        c =>
+          var route = c._2.tree.children.tail.head.children.tail.head.toString()
+          route = route.substring(1, route.length - 1)
+          route == uri // TODO: update route matching
+      }
 
     if (controller.isEmpty) {
       println("Controller not found")
@@ -50,10 +55,5 @@ object Main {
       // Render view
       Display.render(request, view)
     }
-  }
-
-  def matchController (src: String, ref: String): Boolean = {
-    val s = src.substring(1, src.length - 1)
-    s == ref // TODO: improve this
   }
 }

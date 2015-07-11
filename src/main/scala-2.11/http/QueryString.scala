@@ -11,7 +11,8 @@ object QueryString {
   def parseGET (request: Request, query: String): Unit = {
     if (query != null) {
       query.split('&').foreach {
-        v => val a = v.split('=')
+        v =>
+          val a = v.split('=')
           if (a.length > 0) {
             request.GET += (URLHandler.decode(a(0)) -> (if (a.length > 1) URLHandler.decode(a(1)) else ""))
           }
@@ -28,7 +29,8 @@ object QueryString {
     }
 
     data.dropRight(1).split('&').foreach {
-      v => val a = v.split('=')
+      v =>
+        val a = v.split('=')
         if (a.length > 0) {
           request.POST += (URLHandler.decode(a(0)) -> (if (a.length > 1) URLHandler.decode(a(1)) else ""))
         }
