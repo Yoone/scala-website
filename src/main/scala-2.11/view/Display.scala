@@ -24,7 +24,7 @@ object Display {
     try {
       val varPattern = """\{\{\s*([^\s]+)\s*\}\}""".r
       varPattern.findAllIn(contents).matchData foreach {
-        m => contents = contents.replace(m.matched, request.vars.get(m.group(1)).get.toString)
+        m => contents = contents.replace(m.matched, request.vars.getOrElse(m.group(1), "").toString)
       }
     }
     catch {
