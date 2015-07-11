@@ -24,4 +24,16 @@ object Controller {
     request.vars += ("title" -> "ASCII result")
     "ascii_result"
   }
+
+  @Route("/test/form")
+  def test_form (request: Request): String = {
+    request.vars += ("title" -> "Testing a simple form")
+    if (request.POST.nonEmpty) {
+      request.vars += ("name" -> request.POST.getOrElse("name", "Anonymous"))
+      "test_form_result"
+    }
+    else {
+      "test_form"
+    }
+  }
 }

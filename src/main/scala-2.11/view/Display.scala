@@ -10,15 +10,25 @@ object Display {
     var contents = getView(view)
 
     // Search and replace "includes" (one level only)
-    val includePattern = """\{%\s*include\s+([^\s]+)\s*%\}""".r
-    includePattern.findAllIn(contents).matchData foreach {
-      m => contents = contents.replace(m.matched, getView(m.group(1)))
+    try {
+      val includePattern = """\{%\s*include\s+([^\s]+)\s*%\}""".r
+      includePattern.findAllIn(contents).matchData foreach {
+        m => contents = contents.replace(m.matched, getView(m.group(1)))
+      }
+    }
+    catch {
+      case e: NoSuchElementException => // Ignore
     }
 
     // Search and replace vars
-    val varPattern = """\{\{\s*([^\s]+)\s*\}\}""".r
-    varPattern.findAllIn(contents).matchData foreach {
-      m => contents = contents.replace(m.matched, request.vars.get(m.group(1)).get.toString)
+    try {
+      val varPattern = """\{\{\s*([^\s]+)\s*\}\}""".r
+      varPattern.findAllIn(contents).matchData foreach {
+        m => contents = contents.replace(m.matched, request.vars.get(m.group(1)).get.toString)
+      }
+    }
+    catch {
+      case e: NoSuchElementException => // Ignore
     }
 
     print(contents)
