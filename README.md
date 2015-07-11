@@ -60,3 +60,7 @@ For the website to be available through something like `http://scala.local`, jus
 ### Deploy website
 
 Use the provided deploy script: `./deploy.sh`
+
+### Database
+
+TODO
