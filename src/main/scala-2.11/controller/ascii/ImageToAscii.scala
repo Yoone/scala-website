@@ -7,7 +7,7 @@ import javax.imageio._
  * Created by mecavity on 11/07/15.
  */
 object ImageToAscii {
-  private def getAscii(rgb: Array[Int], scale: Int): Int = {
+  private def getAscii(rgb: Array[Int], scale: Int): Char = {
     var avr = 0.0
     for (i <- rgb.indices) {
       val red = (rgb(i) >> 16) & 0xFF
@@ -21,15 +21,16 @@ object ImageToAscii {
       case x if x < 120 => '&'
       case x if x < 180 => '-'
       case x if x < 210 => '0'
-      case _ => ' '
+      case _ => '.'
     }
   }
 
   def imgToAscii(name: String): String = {
     val img = ImageIO.read(new File(name))
+    val wanted_width = 300
     val scale = 10
 
-    var buff: String = null
+    var buff: String = ""
 
     for (y <- 0 until img.getHeight - 1 by scale) {
       for (x <- 0 until img.getWidth - 1 by scale) {
