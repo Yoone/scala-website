@@ -21,7 +21,7 @@ object PostData {
     file.tmpPath = "files/" + file.fileName // TODO generate tmp path
 
     // Read Binary File
-    URLHandler.getFile(request, boundary, StdIn)
+    URLHandler.getFile(request, boundary)
   }
 
   def parseField(request: Request, str: String): Unit = {
