@@ -1,5 +1,7 @@
 package controller
 
+import controller.ascii.ImageToAscii
+
 import slick.jdbc.JdbcBackend.Database
 
 import annotation.Route
@@ -15,16 +17,22 @@ object Controller {
     "index"
   }
 
-  @Route("/ascii/upload")
-  def ascii_upload (request: Request): String = {
+  @Route("/ascii")
+  def ascii (request: Request): String = {
+    if (request.method == "POST") {
+      request.vars += ("title" -> "ASCII result")
+      val file = request.FILES.getOrElse("image", null)
+      if (file == null || (file.contentType != "image/png" && file.contentType != "image/jpeg")) {
+        request.vars += ("error" -> "Only PNG and JPEG files are accepted.")
+      }
+      else {
+        request.vars += ("ascii" -> ImageToAscii.imgToAscii(file.tmpPath))
+        return "ascii_result"
+      }
+    }
+
     request.vars += ("title" -> "Upload an image")
     "ascii_upload"
-  }
-
-  @Route("/ascii/result")
-  def ascii_result (request: Request): String = {
-    request.vars += ("title" -> "ASCII result")
-    "ascii_result"
   }
 
   @Route("/db/hangman")

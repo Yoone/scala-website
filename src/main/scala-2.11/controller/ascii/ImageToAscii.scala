@@ -7,7 +7,7 @@ import javax.imageio._
  * Created by mecavity on 11/07/15.
  */
 object ImageToAscii {
-  def getAscii(rgb: Array[Int], scale: Int): Int = {
+  private def getAscii(rgb: Array[Int], scale: Int): Int = {
     var avr = 0.0
     for (i <- rgb.indices) {
       val red = (rgb(i) >> 16) & 0xFF
