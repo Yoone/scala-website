@@ -13,7 +13,8 @@ object PostData {
   def saveBinaryFile(request: Request, data: String): PostFile = {
     val file = new PostFile()
     file.fileName = data.substring(data.indexOf("filename=") + 10, data.indexOf("\"", data.indexOf("filename=") + 10))
-    file.tmpPath = "files/" + file.fileName // TODO generate tmp path
+    file.contentType = data.substring(data.indexOf("Content-Type:") + 13, data.length - 1).trim
+    file.generateTempPath()
 
     val output = new DataOutputStream(new FileOutputStream(file.tmpPath))
     var b: Int = System.in.read()
@@ -35,7 +36,7 @@ object PostData {
       data += b.toChar
       b = System.in.read()
     }
-    val name: String = data.substring(data.indexOf("name=") + 6, data.indexOf("\"", data.indexOf("name=") + 6))
+    val name = data.substring(data.indexOf("name=") + 6, data.indexOf("\"", data.indexOf("name=") + 6))
 
     // Save Binary File
     request.FILES += (name -> saveBinaryFile(request, data))
