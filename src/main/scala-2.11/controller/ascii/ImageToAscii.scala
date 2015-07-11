@@ -27,8 +27,8 @@ object ImageToAscii {
 
   def imgToAscii(name: String): String = {
     val img = ImageIO.read(new File(name))
-    val wanted_width = 300
-    val scale = 10
+    val wanted_width = 100
+    val scale = (img.getWidth / wanted_width) + 1
 
     var buff: String = ""
 
