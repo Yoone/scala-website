@@ -22,7 +22,7 @@ object Main {
         queryString = rqUri(1)
     }
     catch {
-      case e: NoSuchElementException => uri = "/ascii/upload" // Used for tests
+      case e: NoSuchElementException => // Do nothing, wrong environment
     }
 
     val controller = typeOf[Controller.type].members
