@@ -15,6 +15,23 @@ technologies.
 
 **Note:** the website is running in CGI. We are aware of the wasted resources!
 
+Know Issues
+-----------
+
+### File upload
+
+If you would like to upload a file (eg: an image for the ascii converter) you
+need to make sure that the image field of the page is the very last in the
+form. If it is not the file will not be stored correctly and the fields after
+will be lost. The reason for this is that we start to readbyte as soon as we
+detect a file is being transmitted, in order to know if we have reached the
+end of the file and switch back to parsing we would need to convert each byte
+into a char. This operation is very long and therefore we have chosen to
+ignore this scenario. It is interesting to note that there might be an error
+in the scala library for the Stdin readByte() method that does a readline only
+to try and convert a **line** into a byte (this was discovered after many
+hours of headbanging...).
+
 Installation
 ------------
 
