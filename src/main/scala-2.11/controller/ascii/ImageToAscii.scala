@@ -34,8 +34,8 @@ object ImageToAscii {
 
     for (y <- 0 until img.getHeight - 1 by scale) {
       for (x <- 0 until img.getWidth - 1 by scale) {
-      if (y + scale < img.getHeight && x + scale < img.getWidth)
-        buff += getAscii(img.getRGB(x, y, scale, scale, null, 0, scale), scale)
+        if (y + scale < img.getHeight && x + scale < img.getWidth)
+          buff += getAscii(img.getRGB(x, y, scale, scale, null, 0, scale), scale)
       }
       buff += "\n"
     }
