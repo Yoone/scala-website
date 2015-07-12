@@ -2,10 +2,12 @@ package controller
 
 import controller.ascii.ImageToAscii
 
-import slick.jdbc.JdbcBackend.Database
-
+import model.Word
+import util.DatabaseHandler
 import annotation.Route
 import http.Request
+
+import scala.slick.driver.MySQLDriver.simple._
 
 /**
  * Created by yoone on 08/07/15.
@@ -39,10 +41,11 @@ object Controller {
   def hangman (request: Request): String = {
     request.vars += ("title" -> "Play hangman!")
 
-    // TODO: remove the following code
-    // Used only for testing purposes
-    val db = Database.forConfig("db")
-    db.createConnection()
+    val words = TableQuery[Word]
+    DatabaseHandler.database withSession {
+      implicit session =>
+      //words += (0, "test2")
+    }
 
     "hangman"
   }
