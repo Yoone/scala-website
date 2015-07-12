@@ -53,7 +53,9 @@ object Main {
       val view = method(request).toString
 
       // Render view
-      Display.render(request, view)
+      if (!view.isEmpty) {
+        Display.render(request, view)
+      }
     }
   }
 }
