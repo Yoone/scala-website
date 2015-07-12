@@ -27,4 +27,21 @@ object Headers {
 
     QueryString.parseGET(request, queryString)
   }
+
+  object ContentType extends Enumeration {
+    type ContentType = Value
+    val HTML, JSON = Value // Add more if needed
+  }
+
+  import ContentType._
+  def sendContentType (contentType: ContentType, charset: String = "UTF-8"): Unit = {
+    print("Content-Type: ")
+    contentType match {
+      case JSON =>
+        print("application/json")
+      case _ =>
+        print("text/html")
+    }
+    print("; charset=" + charset + "\n\n")
+  }
 }

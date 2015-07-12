@@ -11,8 +11,6 @@ import reflect.runtime.universe._
 
 object Main {
   def main (args: Array[String]) {
-    println("Content-Type: text/html\n")
-
     var uri: String = null
     var queryString: String = null
     try {

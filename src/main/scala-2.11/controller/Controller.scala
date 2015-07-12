@@ -5,7 +5,7 @@ import controller.ascii.ImageToAscii
 import model.{Game, Word}
 import util.DatabaseHandler
 import annotation.Route
-import http.Request
+import http.{Headers, Request}
 
 import scala.slick.driver.MySQLDriver.simple._
 
@@ -45,6 +45,8 @@ object Controller {
 
   @Route("/hangman/json")
   def hangman_json (request: Request): String = {
+    Headers.sendContentType(Headers.ContentType.JSON)
+
     val words = TableQuery[Word]
     val games = TableQuery[Game]
 

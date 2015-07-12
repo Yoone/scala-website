@@ -1,12 +1,14 @@
 package view
 
-import http.Request
+import http.{Headers, Request}
 
 /**
  * Created by yoone on 10/07/15.
  */
 object Display {
   def render (request: Request, view: String): Unit = {
+    Headers.sendContentType(Headers.ContentType.HTML)
+
     var contents = getView(view)
 
     // Search and replace "includes" (one level only)
