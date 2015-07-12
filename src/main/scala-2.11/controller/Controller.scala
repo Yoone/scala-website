@@ -2,7 +2,7 @@ package controller
 
 import controller.ascii.ImageToAscii
 
-import model.Word
+import model.{Game, Word}
 import util.DatabaseHandler
 import annotation.Route
 import http.Request
@@ -40,14 +40,21 @@ object Controller {
   @Route("/hangman")
   def hangman (request: Request): String = {
     request.vars += ("title" -> "Play hangman!")
+    "hangman"
+  }
 
+  @Route("/hangman/json")
+  def hangman_json (request: Request): String = {
     val words = TableQuery[Word]
+    val games = TableQuery[Game]
+
     DatabaseHandler.database withSession {
       implicit session =>
-      //words += (0, "test2")
+        val game_id = (games returning games.map(_.id)) += (0, 1, "")
+        println("{\"game_id\":" + game_id + "}")
     }
 
-    "hangman"
+    ""
   }
 
   @Route("/test/form")
