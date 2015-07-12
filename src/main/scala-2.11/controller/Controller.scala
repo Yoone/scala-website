@@ -35,8 +35,8 @@ object Controller {
     "ascii_upload"
   }
 
-  @Route("/db/hangman")
-  def db_hangman (request: Request): String = {
+  @Route("/hangman")
+  def hangman (request: Request): String = {
     request.vars += ("title" -> "Play hangman!")
 
     // TODO: remove the following code
@@ -44,7 +44,7 @@ object Controller {
     val db = Database.forConfig("db")
     db.createConnection()
 
-    "db_hangman"
+    "hangman"
   }
 
   @Route("/test/form")

@@ -69,4 +69,13 @@ Use the provided deploy script: `./deploy.sh`
 
 ### Database
 
-TODO
+MySQL >= 5.5 is needed for this project to work. You will first need to create a database and a user with all permissions on it.
+
+- Log into MySQL: `mysql -u root -p` and then type your root password
+- Create a new database: `CREATE DATABASE <database>;`
+- Create a new user: `CREATE USER '<username>'@'localhost' IDENTIFIED BY '<password>';`
+- Give it the permissions: `GRANT ALL PRIVILEGES ON <database>.* TO '<username>'@'localhost' WITH GRANT OPTION;`
+
+The `init.sql` script then has to be executed as follows:
+
+    mysql -u <username> -p <password> <database> < init.sql
