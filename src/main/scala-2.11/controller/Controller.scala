@@ -8,6 +8,7 @@ import annotation.Route
 import http.{Headers, Request}
 
 import scala.slick.driver.MySQLDriver.simple._
+import scala.util.Random
 
 /**
  * Created by yoone on 08/07/15.
@@ -60,8 +61,10 @@ object Controller {
     request.GET.getOrElse("action", "") match {
       case "new" => DatabaseHandler.database withSession {
         implicit session =>
-          // TODO random word
-          val game_id = (games returning games.map(_.id)) +=(0, 1, "")
+          // TODO security on random word
+          val nb_words = words.map(w => w.id).sortBy(w => w.desc).first
+          val rand = new Random()
+          val game_id = (games returning games.map(_.id)) +=(0, rand.nextInt(nb_words), "")
           val game_word_id = games.filter(_.id === game_id).map(_.word_id)
           val word = words.filter(_.id in game_word_id).map(_.word).first.toLowerCase
           var mystery = ""
