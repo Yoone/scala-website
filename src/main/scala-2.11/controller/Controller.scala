@@ -64,7 +64,10 @@ object Controller {
           // TODO security on random word
           val nb_words = words.map(w => w.id).sortBy(w => w.desc).first
           val rand = new Random()
-          val game_id = (games returning games.map(_.id)) +=(0, rand.nextInt(nb_words), "")
+          var newWordID = rand.nextInt(nb_words)
+          while (newWordID == 0)
+            newWordID = rand.nextInt(nb_words)
+          val game_id = (games returning games.map(_.id)) += (0, newWordID, "")
           val game_word_id = games.filter(_.id === game_id).map(_.word_id)
           val word = words.filter(_.id in game_word_id).map(_.word).first.toLowerCase
           var mystery = ""
