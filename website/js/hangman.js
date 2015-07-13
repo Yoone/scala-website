@@ -108,11 +108,11 @@
                 // Status update
                 if (data.finished) {
                     $("#buttons").hide();
-                    $("#status").text("Congratulations!");
+                    $("#status").text("Congratulations! Hit F5 for a new game.");
                 }
                 else if (current_hangman >= full_hangman) {
                     $("#buttons").hide();
-                    $("#status").text("Game Over! How embarrassing...");
+                    $("#status").text("Game Over! How embarrassing... Hit F5 for a new game.");
                 }
                 else {
                     $("#status").text("Ready.");
