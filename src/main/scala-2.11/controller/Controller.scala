@@ -93,7 +93,7 @@ object Controller {
     word.foreach(x => if (!all_guesses.contains(x)) finished = false)
 
     // success, finished, word
-    println("{\"word\":" + result + "\",\"success\":" + word.contains(guess) + ",\"finished\":" + finished + "}")
+    println("{\"word\":\"" + result + "\",\"success\":" + word.contains(guess) + ",\"finished\":" + finished + "}")
     //println("Game: " + current_game)
     //println("Objective: " + word)
     //println("Guessed: " + all_guesses)
