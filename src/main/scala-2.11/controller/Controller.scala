@@ -49,11 +49,8 @@ object Controller {
 
     val words = TableQuery[Word]
     val games = TableQuery[Game]
-
     var all_guesses = ""
     var guess = " "
-
-    // val current_game: Int = request.GET.getOrElse("id", )
     val id = request.GET.getOrElse("id", 0)
     val current_game: Int = id match {
       case x: String => x.toInt
@@ -67,11 +64,13 @@ object Controller {
           println("{\"game_id\":" + game_id + "}")
           return ""
       }
-      case x if current_game == 0 => println("{\"error\":\"Bad game id\"}")
-        return ""
-        // TODO check if current_game exists
       case x => DatabaseHandler.database withSession {
         implicit session =>
+          val all_games = games.map(_.id)
+          if (!games.filter(_.id === current_game).exists.run) {
+            println("{\"error\":\"Bad game id\"}")
+            return ""
+          }
           all_guesses = games.filter(_.id === current_game).map(_.guessed).first.toLowerCase
           all_guesses += (if (all_guesses.contains(x)) "" else x).toLowerCase
           games.filter(_.id === current_game).map(_.guessed).update(all_guesses)
@@ -88,17 +87,10 @@ object Controller {
     var result = ""
     word.foreach(x => result += ((if (all_guesses.contains(x)) x else '_') + " "))
     result = result.trim.toUpperCase
-
     var finished = true
     word.foreach(x => if (!all_guesses.contains(x)) finished = false)
 
-    // success, finished, word
     println("{\"word\":\"" + result + "\",\"success\":" + word.contains(guess) + ",\"finished\":" + finished + "}")
-    //println("Game: " + current_game)
-    //println("Objective: " + word)
-    //println("Guessed: " + all_guesses)
-    //println("Current: " + result)
-
     ""
   }
 
