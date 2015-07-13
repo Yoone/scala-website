@@ -60,8 +60,13 @@ object Controller {
     request.GET.getOrElse("action", "") match {
       case "new" => DatabaseHandler.database withSession {
         implicit session =>
+          // TODO random word
           val game_id = (games returning games.map(_.id)) +=(0, 1, "")
-          println("{\"game_id\":" + game_id + "}")
+          val game_word_id = games.filter(_.id === game_id).map(_.word_id)
+          val word = words.filter(_.id in game_word_id).map(_.word).first.toLowerCase
+          var mystery = ""
+          word.foreach(c => mystery += "_ ")
+          println("{\"game_id\":" + game_id + ",\"word\":\"" + mystery.trim + "\"}")
           return ""
       }
       case x => DatabaseHandler.database withSession {
