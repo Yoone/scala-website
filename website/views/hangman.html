@@ -1,5 +1,16 @@
 {% include _header %}
 
-<p>TODO: hangman game.</p>
+<div id="hangman">
+    <p id="status"></p>
+    <button data-create="true">New game</button>
+    <div id="game">
+        <p id="word"></p>
+        <pre id="figure"></pre>
+    </div>
+    <div id="buttons"></div>
+</div>
+
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/hangman.js"></script>
 
 {% include _footer %}
