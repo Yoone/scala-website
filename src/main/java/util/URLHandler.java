@@ -1,7 +1,5 @@
 package util;
 
-import http.Request;
-
 import java.io.*;
 import java.net.URLDecoder;
 
@@ -16,8 +14,5 @@ public class URLHandler {
             e.printStackTrace();
             return null;
         }
-    }
-
-    public static void getFile(Request request, String boundary) {
     }
 }
