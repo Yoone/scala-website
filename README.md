@@ -32,6 +32,12 @@ in the scala library for the Stdin readByte() method that does a readline only
 to try and convert a **line** into a byte (this was discovered after many
 hours of headbanging...).
 
+### Website reactivity
+
+Every page loads extremely slowly, and this is because we use CGI and for each
+page a new instance of the website's jar is called. But again, the goal of this
+project is only to learn Scala and become familiar with it.
+
 Installation
 ------------
 
